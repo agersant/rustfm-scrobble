@@ -1,3 +1,16 @@
+Version 1.1.1 - 2020-12-13
+========================
+
+  * Update `wrapped-vec` dependency to v0.3.0
+
+
+Version 1.1.0 - 2020-12-13
+========================
+
+  * Replace `reqwest` HTTP client with `ureq` (@agersant, #47, #48)
+  * Update `mockito` dev-dependency to v0.28
+
+
 Version 1.0.1 - 2020-08-14
 ==========================
 
