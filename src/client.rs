@@ -82,8 +82,8 @@ impl LastFm {
         Ok(decoded.session)
     }
 
-    /// Authenticates with a session key 
-    /// 
+    /// Authenticates with a session key
+    ///
     /// This requires no initial authentication with the API, so we simply store the key. It must be a valid session
     /// key. Session keys are documented at `Scrobbler::authenticate_with_session_key`.
     pub fn authenticate_with_session_key(&mut self, session_key: &str) {
@@ -164,10 +164,6 @@ impl LastFm {
             .send_request(&operation, params)
             .map_err(|err| err.to_string())?;
 
-        if resp.error() {
-            return Err(format!("Non Success status ({})", resp.status()));
-        }
-
         let resp_body = resp
             .into_string()
             .map_err(|_| "Failed to read response body".to_string())?;
@@ -195,11 +191,10 @@ impl LastFm {
             .map(|(k, v)| (k.as_str(), v.as_str()))
             .collect();
 
-        let resp = self.http_client.post(url).send_form(&params[..]);
-        match resp.synthetic_error() {
-            None => Ok(resp),
-            Some(e) => Err(e.to_string()),
-        }
+        self.http_client
+            .post(url)
+            .send_form(&params[..])
+            .map_err(|e| e.to_string())
     }
 }
 
